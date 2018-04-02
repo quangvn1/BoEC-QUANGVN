@@ -15,28 +15,28 @@ import java.util.List;
  * @author quangvn
  */
 public class ProductService {
-    
+
     private ProductService() {
     }
-    
+
     public static ProductService getInstance() {
         return ProductServiceHolder.INSTANCE;
     }
-    
+
     private static class ProductServiceHolder {
 
         private static final ProductService INSTANCE = new ProductService();
     }
-    
-    public List<Product> getProductByKeyStatus(String keyStatus){
+
+    public List<Product> getProductByKeyStatus(String keyStatus) {
         return ProductDao.getInstance().getProductByKeyStatus(keyStatus);
     }
-    
-    public List<Product> getProduct(){
+
+    public List<Product> getProduct() {
         return ProductDao.getInstance().getProduct();
     }
-    
-    public List<AbstractProduct> getProductByName(String key){
+
+    public List<AbstractProduct> getProductByName(String key) {
         return ProductDao.getInstance().getProductByName(key);
     }
 }

@@ -43,6 +43,12 @@ public class ProductController {
         List<Product> listSpecial = ProductService.getInstance().getProductByKeyStatus("dacbiet");
         List<Product> listTemp;
         List<Product> listProduct = new ArrayList<>();
+        if (typeProduct == null) {
+            typeProduct = "Tatca";
+        }
+        if (price == null) {
+            price = "Tatca";
+        }
         switch (typeProduct) {
             case "Book":
                 FilterProduct bookFilter = new BookProductFilter();
@@ -56,7 +62,7 @@ public class ProductController {
                         FilterProduct mediumFilter = new MediumPriceProductFilter();
                         listProduct = mediumFilter.filterProduct(listTemp);
                         break;
-                    default:
+                    case "Tatca":
                         listProduct = listTemp;
                         break;
                 }
@@ -73,7 +79,7 @@ public class ProductController {
                         FilterProduct mediumFilter = new MediumPriceProductFilter();
                         listProduct = mediumFilter.filterProduct(listTemp);
                         break;
-                    default:
+                    case "Tatca":
                         listProduct = listTemp;
                         break;
                 }
@@ -90,8 +96,23 @@ public class ProductController {
                         FilterProduct mediumFilter = new MediumPriceProductFilter();
                         listProduct = mediumFilter.filterProduct(listTemp);
                         break;
-                    default:
+                    case "Tatca":
                         listProduct = listTemp;
+                        break;
+                }
+                break;
+            case "Tatca":
+                switch (price) {
+                    case "low":
+                        FilterProduct lowFilter = new LowPriceProductFilter();
+                        listProduct = lowFilter.filterProduct(list);
+                        break;
+                    case "medium":
+                        FilterProduct mediumFilter = new MediumPriceProductFilter();
+                        listProduct = mediumFilter.filterProduct(list);
+                        break;
+                    case "Tatca":
+                        listProduct = list;
                         break;
                 }
                 break;
@@ -102,9 +123,9 @@ public class ProductController {
         model.addAttribute("price", price);
         return "product/listproduct";
     }
-    
-    @RequestMapping(value = "/searchproduct",method = RequestMethod.POST)
-    public String searchProduct(Model model, String key){
+
+    @RequestMapping(value = "/searchproduct", method = RequestMethod.POST)
+    public String searchProduct(Model model, String key) {
         List<AbstractProduct> listProduct = ProductService.getInstance().getProductByName(key);
         model.addAttribute("listProduct", listProduct);
         return "product/listproduct";
